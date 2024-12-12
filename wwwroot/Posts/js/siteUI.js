@@ -33,22 +33,26 @@ async function checkToken() {
         if (res != null) {
             console.log('bb');
             connectedUser = res.User;
-            intialView();
+            
             sessionStorage.setItem('token', res.Access_token);
 
-            $.ajaxSetup({
+
+            await $.ajaxSetup({
                 headers: {
                     'authorization': `${res.Access_token}`
                 },
             });
             install_timeout();
+            updateDropDownMenu();
+            intialView();
         }
     }
+    Init_UI();
 }
 
 checkToken();
 
-Init_UI();
+
 
 async function Init_UI() {
     postsPanel = new PageManager('postsScrollPanel', 'postsPanel', 'postSample', renderPosts);
@@ -261,7 +265,7 @@ function start_Periodic_Refresh() {
             }
         }
     },
-        periodicRefreshPeriod * 1000 * 1000);
+        periodicRefreshPeriod * 1000);
 }
 async function renderPosts(queryString) {
     let endOfData = false;
@@ -1064,7 +1068,7 @@ function appendEvents() {
         let user = await Account_API.Get($(this).attr('userId'));
         if (user != null) {
             //console.log(user.data);
-            Account_API.promote(user.data);
+           await Account_API.promote(user.data);
         }
         renderUsers();
     });
