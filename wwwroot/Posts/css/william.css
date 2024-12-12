@@ -1,0 +1,221 @@
+
+
+.form-connect input,
+button {
+    height: 2em;
+}
+
+div.space-bottom,
+.form-connect button
+{
+    width: 70%;
+}
+div.space-bottom input{
+    width: 100%;
+}
+.form-connect {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.form-connect button,
+.form-register button {
+    border-radius: 6px;
+    border: none;
+    height: 2.2em;
+    
+}
+
+.form-connect hr {
+    width: 70%;
+    border: 1px solid black;
+    border-radius: 1em;
+}
+
+form .blue {
+    background-color: rgb(0, 105, 243);
+    color: white;
+}
+
+form .light-blue {
+    background-color: rgb(94, 204, 247);
+}
+
+form .grey {
+    background-color: rgb(111, 111, 111);
+    color: white;
+}
+form .red{
+    background-color: #e03444;
+    color: white;
+}
+
+.form-connect .form-section {
+    border: 1px solid #bbb;
+}
+
+.form-connect #text {
+    width: 70%;
+    font-size: 1.3em;
+}
+.redText{
+    text-align: center;
+    color: red;
+}
+.likeCmd {
+    white-space: pre-line;
+}
+
+
+.form-register {
+    margin-top: 1em;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+.form-register button {
+    width: 80%;
+}
+
+
+.form-section {
+    width: 80%;
+    margin: 0 auto 1em auto;
+    border: 1px solid#bbb;
+    padding: .5em;
+    border-radius: 6px;
+}
+
+.form-section input {
+    width: 100%;
+}
+
+.form-register img {
+    max-height: 20em;
+    width: fit-content !important;
+    margin: auto;
+    max-width: 100%;
+}
+
+form .space-bottom {
+    margin-bottom: 1.5em
+}
+
+form .space-bottom-sm {
+    margin-bottom: 0.5em
+}
+
+.form-register label {
+    margin-bottom: .5em;
+    margin-top: 0;
+    font-weight: normal;
+}
+.error{
+    color: red;
+    font-size: .8em;
+    font-style: italic;
+}
+
+.dropdown-item img{
+ width: 40px;
+ height: 40px;
+ border-radius: 50%;
+}
+.avatarItemLayout{
+    display: grid;
+    grid-template-columns: 50px auto;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+.post-owner-container{
+    display: flex;
+    flex-direction: row;
+    gap: .5em;
+    padding: .25em;
+    font-weight: 600;
+    font-size: 1.5em;
+    align-items: center;
+}
+.post-owner-container img{
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+}
+.post-info-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.postDate{
+    font-size: 1em;
+}
+
+.post .cmdIconSmall{
+    display: none;
+}
+.post:hover .hoverCmd{
+    display: block; 
+}
+.post:hover .hoverHidden{
+    visibility: hidden;
+    display: block;
+}
+
+.post:hover .likeCmd{
+    display: block; 
+}
+#adminPage{
+    width: 80%;
+    margin: auto;
+}
+#adminPage input{
+    width: 100%;
+}
+#userContainer{
+    margin-top: 1em;
+}
+#userContainer .userCard:last-child{
+    border-bottom: none !important;
+}
+#adminPage .userCard{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px 10px 20px;
+    gap:.5em;
+    border-bottom: 1px solid var(--borderColor);
+}
+#adminPage .userInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    gap:10px;
+}
+#adminPage img{
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+}
+.userInfo span{
+    font-weight: 600;
+    font-size: 1.2em;
+}
+#adminPage .userCmd{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    align-items:center;
+    gap:10px;
+}
+#adminPage .red{
+    -webkit-text-fill-color: red !important;
+}
+#adminPage .grey{
+    -webkit-text-fill-color: #bbb !important;
+}
