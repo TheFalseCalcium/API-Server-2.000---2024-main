@@ -369,12 +369,13 @@ function renderPost(post, likes, owner) {
                 `<span class="cmdIconSmall likeCmd Cmd" title="${tooltip}">${e = likes == undefined ? '' : likes.likes}</span>`;
         }
         isOwnerIconClass = (post.OwnerId == connectedUser.Id || isAdmin()) ? "hoverCmd" : "hoverHidden";
+         
 
     }
 
     let crudIcon =
         `
-        <span class="editCmd Cmd cmdIconSmall fa fa-pencil ${isOwnerIconClass}" postId="${post.Id}" title="Modifier nouvelle"></span>
+        <span class="editCmd Cmd cmdIconSmall fa fa-pencil ${isOwnerIconClass = isAdmin() == true? "": isOwnerIconClass }" postId="${post.Id}" title="Modifier nouvelle"></span>
         <span class="deleteCmd Cmd cmdIconSmall fa fa-trash ${isOwnerIconClass}" postId="${post.Id}" title="Effacer nouvelle"></span>
         ${likesHtml}
         `;
