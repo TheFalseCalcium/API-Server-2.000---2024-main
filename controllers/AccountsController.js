@@ -149,39 +149,52 @@ export default class AccountsController extends Controller {
         
         if (this.repository != null) {
             let foundUser = this.repository.findByField("Id", user.Id);
-            if (foundUser.Authorizations.writeAccess == -1 && foundUser.Authorizations.readAccess == -1 ){
-                foundUser.Authorizations.writeAccess--;
-                foundUser.Authorizations.readAccess--;
+
+            if (AccessControl.writeGrantedAdminOrOwner(this.HttpContext, this.requiredAuthorizations, this.HttpContext.user.Id)){
+                if (foundUser.Authorizations.writeAccess == -1 && foundUser.Authorizations.readAccess == -1 ){
+                    foundUser.Authorizations.writeAccess--;
+                    foundUser.Authorizations.readAccess--;
+                }
+                
+                foundUser.Authorizations.readAccess++;
+                if (foundUser.Authorizations.readAccess > 3) foundUser.Authorizations.readAccess = 1;
+                foundUser.Authorizations.writeAccess++;
+                if (foundUser.Authorizations.writeAccess > 3) foundUser.Authorizations.writeAccess = 1;
+    
+    
+                this.repository.update(user.Id, foundUser, false);
+                if (this.repository.model.state.isValid) {
+                    let userFound = this.repository.get(foundUser.Id); // get data binded record
+                    this.HttpContext.response.JSON(userFound);
+                }
+                else
+                    this.HttpContext.response.badRequest(this.repository.model.state.errors);
+            }else{
+                this.HttpContext.response.unAuthorized("Unauthorized access");
             }
             
-            foundUser.Authorizations.readAccess++;
-            if (foundUser.Authorizations.readAccess > 3) foundUser.Authorizations.readAccess = 1;
-            foundUser.Authorizations.writeAccess++;
-            if (foundUser.Authorizations.writeAccess > 3) foundUser.Authorizations.writeAccess = 1;
-
-
-            this.repository.update(user.Id, foundUser, false);
-            if (this.repository.model.state.isValid) {
-                let userFound = this.repository.get(foundUser.Id); // get data binded record
-                this.HttpContext.response.JSON(userFound);
-            }
-            else
-                this.HttpContext.response.badRequest(this.repository.model.state.errors);
         } else
             this.HttpContext.response.notImplemented();
     }
     block(user) {
+        
         if (this.repository != null) {
             let foundUser = this.repository.findByField("Id", user.Id);
-            foundUser.Authorizations.readAccess = foundUser.Authorizations.readAccess == -1 ? 1 : -1;
-            foundUser.Authorizations.writeAccess = foundUser.Authorizations.writeAccess == -1 ? 1 : -1;
-            this.repository.update(user.Id, foundUser, false);
-            if (this.repository.model.state.isValid) {
-                let userFound = this.repository.get(foundUser.Id, true); // get data binded record
-                this.HttpContext.response.JSON(userFound);
+
+            if (AccessControl.writeGrantedAdminOrOwner(this.HttpContext, this.requiredAuthorizations, this.HttpContext.user.Id)){
+                foundUser.Authorizations.readAccess = foundUser.Authorizations.readAccess == -1 ? 1 : -1;
+                foundUser.Authorizations.writeAccess = foundUser.Authorizations.writeAccess == -1 ? 1 : -1;
+                this.repository.update(user.Id, foundUser, false);
+                if (this.repository.model.state.isValid) {
+                    let userFound = this.repository.get(foundUser.Id, true); // get data binded record
+                    this.HttpContext.response.JSON(userFound);
+                }
+                else
+                    this.HttpContext.response.badRequest(this.repository.model.state.errors);
+            }else{
+                this.HttpContext.response.unAuthorized("Unauthorized access");
             }
-            else
-                this.HttpContext.response.badRequest(this.repository.model.state.errors);
+           
         } else
             this.HttpContext.response.notImplemented();
     }
@@ -242,7 +255,7 @@ export default class AccountsController extends Controller {
             // get posts of user
             let userPosts = _PostController.repository.findByFilter(function (obj) { return obj.OwnerId == id });
             //remove like from the posts of the user
-            let a = 2;
+
             userPosts.forEach(post => {
                 _LikeController.repository.keepByFilter(function (obj) { return obj.Post != post.Id })
             });

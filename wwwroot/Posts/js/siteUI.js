@@ -31,7 +31,6 @@ async function checkToken() {
     if (sessionStorage.getItem('token') != undefined) {
         let res = await Account_API.checkToken(sessionStorage.getItem('token'));
         if (res != null) {
-            console.log('bb');
             connectedUser = res.User;
             
             sessionStorage.setItem('token', res.Access_token);
@@ -986,6 +985,8 @@ function renderDeleteAccount() {
 
         if (res == null) {
             showError("Une erreur est survenue! " + Account_API.currentHttpError);
+        }else{
+            disconnect();
         }
     });
     $($('form').find('button')[1]).on('click', function () {
