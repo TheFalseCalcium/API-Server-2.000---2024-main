@@ -370,7 +370,7 @@ function renderPost(post, likes, owner) {
                 `<span class="cmdIconSmall likeCmd Cmd" title="${tooltip}">${e = likes == undefined ? '' : likes.likes}</span>`;
         }
         isOwnerIconClass = (post.OwnerId == connectedUser.Id || isAdmin()) ? "hoverCmd" : "hoverHidden";
-        isAdminOwnerIconClass = isAdmin() == true? "": isOwnerIconClass;
+        isAdminOwnerIconClass = isAdmin() == true? "hoverHidden": isOwnerIconClass;
 
     }
 
